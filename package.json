@@ -1,0 +1,66 @@
+{
+  "name": "figure",
+  "displayName": "Figure",
+  "description": "Create beautiful diagrams and sketches directly in VS Code",
+  "version": "0.0.1",
+  "publisher": "imfeniljikadara",
+  "author": {
+    "name": "Fenil Jikadara"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/imfeniljikadara/figure.git"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other",
+    "Visualization"
+  ],
+  "keywords": [
+    "diagram",
+    "drawing",
+    "sketch",
+    "excalidraw",
+    "whiteboard"
+  ],
+  "icon": "media/icon.png",
+  "galleryBanner": {
+    "color": "#C80000",
+    "theme": "dark"
+  },
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "figure.new",
+        "title": "New Figure Sketch"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.85.0",
+    "@types/node": "^20.10.0",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.13.0",
+    "@typescript-eslint/parser": "^6.13.0",
+    "eslint": "^8.54.0",
+    "typescript": "^5.3.2"
+  },
+  "dependencies": {
+    "@excalidraw/excalidraw": "0.15.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  }
+}
