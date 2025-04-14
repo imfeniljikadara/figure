@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Figure - Project Overview</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eaeaea;
+        }
+        h1 {
+            color: #2563eb;
+            margin-bottom: 10px;
+        }
+        h2 {
+            color: #1e40af;
+            margin-top: 40px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eaeaea;
+        }
+        h3 {
+            color: #3b82f6;
+            margin-top: 30px;
+        }
+        .diagram-container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 30px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: auto;
+        }
+        /* Enhanced styling for diagrams */
+        .diagram-container.enhanced {
+            padding: 40px;
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            margin: 40px 0;
+            overflow-x: auto;
+        }
+        .diagram {
+            width: 100%;
+            height: auto;
+            margin: 0 auto;
+        }
+        .component-box {
+            border: 2px solid #3b82f6;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            background-color: #f0f7ff;
+        }
+        .file-structure {
+            font-family: monospace;
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            white-space: pre;
+            overflow-x: auto;
+        }
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .tech-item {
+            background-color: #e0e7ff;
+            color: #4338ca;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+        .flow-diagram {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .mermaid {
+            margin: 0 auto;
+            overflow: auto;
+            font-size: 18px;
+        }
+        /* Enhanced styling for diagrams */
+        .diagram-container.enhanced {
+            padding: 40px;
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            margin: 40px 0;
+            overflow-x: auto;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@9.4.3/dist/mermaid.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            mermaid.initialize({ 
+                startOnLoad: true,
+                theme: 'default',
+                securityLevel: 'loose',
+                flowchart: { 
+                    useMaxWidth: true,
+                    htmlLabels: true,
+                    curve: 'linear',
+                    nodeSpacing: 80,
+                    rankSpacing: 100
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Figure - Project Overview</h1>
+        <p>Create beautiful diagrams and sketches directly in VS Code</p>
+    </header>
+
+    <h2>Project Description</h2>
+    <p>
+        Figure is a powerful VSCode extension that integrates Excalidraw, allowing users to create beautiful diagrams and sketches directly within the VSCode editor. 
+        The extension provides a seamless drawing experience with features like saving/loading diagrams and theme synchronization with VSCode.
+    </p>
+
+    <h2>Technology Stack</h2>
+    <div class="tech-stack">
+        <div class="tech-item">TypeScript</div>
+        <div class="tech-item">VSCode Extension API</div>
+        <div class="tech-item">React</div>
+        <div class="tech-item">Excalidraw</div>
+        <div class="tech-item">HTML/CSS</div>
+        <div class="tech-item">Node.js</div>
+    </div>
+
+    <h2>High-Level Architecture</h2>
+    <div class="diagram-container">
+        <div class="mermaid">
+graph TD
+    User[User] --- VSCode[VSCode Editor]
+    VSCode --- Extension[Figure Extension]
+    Extension --- Webview[Webview Panel]
+    Webview --- Excalidraw[Excalidraw Library]
+    
+    subgraph "Extension Components"
+        ExtensionAPI[VSCode Extension API] --- Commands[Commands]
+        Commands --- WebviewAPI[Webview API]
+        WebviewAPI --- MessagePassing[Message Passing]
+    end
+    
+    subgraph "Webview Components"
+        WebviewUI[Webview UI] --- ReactApp[React App]
+        ReactApp --- ExcalidrawComponent[Excalidraw Component]
+        ExcalidrawComponent --- DrawingTools[Drawing Tools]
+    end
+    
+    Extension --- Extension_Components[Extension Components]
+    Webview --- Webview_Components[Webview Components]
+    
+    classDef vscode fill:#d1e7dd,stroke:#20c997;
+    classDef extension fill:#cfe2ff,stroke:#0d6efd;
+    classDef webview fill:#e2e3e5,stroke:#6c757d;
+    classDef excalidraw fill:#f8d7da,stroke:#dc3545;
+    
+    class VSCode vscode;
+    class Extension extension;
+    class Webview webview;
+    class Excalidraw excalidraw;
+        </div>
+    </div>
+
+    <h2>Detailed Component Architecture</h2>
+    <div class="diagram-container">
+        <div class="mermaid">
+graph TD
+    subgraph "Extension"
+        ActivateFunc["activate() function"] --> RegisterCommand["Register figure.new command"]
+        RegisterCommand --> CreateWebview["Create Webview Panel"]
+        CreateWebview --> SetupMessageHandlers["Setup Message Handlers"]
+        SetupMessageHandlers --> HandleSave["Handle Save Messages"]
+        SetupMessageHandlers --> HandleExport["Handle Export Messages"]
+    end
+    
+    subgraph "Webview"
+        WebviewHTML["HTML Content"] --> LoadScripts["Load React & Excalidraw Scripts"]
+        LoadScripts --> InitializeApp["Initialize React App"]
+        InitializeApp --> RenderExcalidraw["Render Excalidraw Component"]
+        RenderExcalidraw --> SetupProps["Setup Excalidraw Props"]
+        SetupProps --> OnChangeHandler["onChange Handler"]
+        SetupProps --> OnSaveHandler["onSave Handler"]
+        SetupProps --> ThemeProps["Theme Props"]
+        
+        OnSaveHandler --> PostMessage["Post Message to Extension"]
+    end
+    
+    ActivateFunc -.-> WebviewHTML["Provides HTML content"]
+    HandleSaveRequest -.-> HandleSave["POST Message"]
+    
+    classDef extension fill:#f0f7ff,stroke:#3b82f6;
+    classDef webview fill:#f0fdf4,stroke:#22c55e;
+    
+    class Extension extension;
+    class Webview webview;
+        </div>
+    </div>
+
+    <h2>Project Structure</h2>
+    <div class="file-structure">
+figure/
+├── .vscode/                # VSCode configuration
+├── media/                  # Images and assets
+│   └── icon.png            # Extension icon
+├── node_modules/           # Dependencies
+├── out/                    # Compiled JavaScript files
+│   └── extension.js        # Compiled extension code
+├── src/                    # Source code
+│   └── extension.ts        # Main extension code
+├── .gitignore              # Git ignore file
+├── .vscodeignore           # VSCode packaging ignore file
+├── LICENSE.md              # License file
+├── README.md               # Documentation
+├── package.json            # Extension metadata and dependencies
+├── package-lock.json       # Dependency lock file
+└── tsconfig.json           # TypeScript configuration
+</div>
+
+    <h2>Data Flow Diagram</h2>
+    <div class="diagram-container">
+        <div class="mermaid">
+            sequenceDiagram
+                participant User
+                participant VSCode
+                participant Extension
+                participant Webview
+                participant Excalidraw
+                
+                User->>VSCode: Open Command Palette
+                User->>VSCode: Select "New Figure Sketch"
+                VSCode->>Extension: Activate Extension
+                Extension->>Webview: Create Webview Panel
+                Extension->>Webview: Load HTML Content
+                Webview->>Excalidraw: Load Excalidraw Library
+                Webview->>Excalidraw: Initialize Drawing Interface
+                Excalidraw->>Webview: Render Drawing Tools
+                Webview->>User: Display Drawing Interface
+                
+                User->>Excalidraw: Create Drawing
+                User->>Excalidraw: Press Ctrl/Cmd+S
+                Excalidraw->>Webview: Trigger onSave Event
+                Webview->>Extension: Send Save Message
+                Extension->>VSCode: Call showSaveDialog
+                User->>VSCode: Select Save Location
+                VSCode->>Extension: Return File URI
+                Extension->>VSCode: Write .figure File
+                VSCode->>User: Show Success Message
+        </div>
+    </div>
+
+    <h2>Detailed API Endpoints</h2>
+    <div class="diagram-container">
+        <div class="mermaid">
+graph LR
+    subgraph "VSCode Extension API"
+        Commands["vscode.commands"] --- RegisterCommand["registerCommand"]
+        Window["vscode.window"] --- CreateWebview["createWebviewPanel"]
+        Window --- ShowSaveDialog["showSaveDialog"]
+        Window --- ShowMessage["showInformationMessage"]
+        Workspace["vscode.workspace"] --- WriteFile["fs.writeFile"]
+        ExtensionContext["ExtensionContext"] --- Subscriptions["subscriptions"]
+    end
+    
+    subgraph "Webview API"
+        WebviewPanel["WebviewPanel"] --- HTML["html property"]
+        WebviewPanel --- OnDidReceiveMessage["onDidReceiveMessage"]
+        WebviewPanel --- PostMessage["postMessage"]
+    end
+    
+    RegisterCommand --- CreateWebview
+    OnDidReceiveMessage --- HandleSave["Handle 'save' command"]
+    OnDidReceiveMessage --- HandleExport["Handle 'export' command"]
+    HandleSave --- ShowSaveDialog
+    ShowSaveDialog --- WriteFile
+    WriteFile --- ShowMessage
+    
+    classDef vscode fill:#dbeafe,stroke:#3b82f6;
+    classDef webview fill:#dcfce7,stroke:#22c55e;
+    
+    class VSCode_Extension_API vscode;
+    class Webview_API webview;
+        </div>
+    </div>
+
+    <h2>Extension Activation Flow</h2>
+    <div class="diagram-container enhanced">
+        <div class="mermaid">
+graph LR
+    A["VSCode Starts"] --> B["Load Extension"]
+    B --> C["Call activate Function"]
+    C --> D["Register figure.new Command"]
+    D --> E["Add to Context Subscriptions"]
+    E --> F["Extension Ready"]
+    F --> G["User Invokes Command"]
+    G --> H["Create WebviewPanel"]
+    H --> I["Set Panel Options"]
+    I --> J["Load HTML Content"]
+    J --> K["Setup Message Handler"]
+    K --> L["Extension UI Ready"]
+    
+    style A fill:#d4f4e2,stroke:#34d399,stroke-width:3px,color:#065f46,font-weight:bold
+    style B fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#1e40af
+    style C fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#1e40af
+    style D fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#1e40af
+    style E fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#1e40af
+    style F fill:#d4f4e2,stroke:#34d399,stroke-width:3px,color:#065f46,font-weight:bold
+    style G fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#1e40af
+    style H fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#1e40af
+    style I fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#1e40af
+    style J fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#1e40af
+    style K fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#1e40af
+    style L fill:#d4f4e2,stroke:#34d399,stroke-width:3px,color:#065f46,font-weight:bold
+        </div>
+    </div>
+
+    <h2>User Flow</h2>
+    <div class="diagram-container enhanced">
+        <div class="mermaid">
+graph LR
+    A["Start"] --> B["Open VSCode"]
+    B --> C["Open Command Palette"]
+    C --> D["Type New Figure Sketch"]
+    D --> E["Select Command"]
+    E --> F["Open Figure Panel"]
+    F --> G["Create Diagram"]
+    G --> H["Press Ctrl/Cmd+S"]
+    H --> I["Select Save Location"]
+    I --> J["Save .figure File"]
+    J --> K["View Success Message"]
+    K --> L["Continue Editing"]
+    L --> H
+    
+    style A fill:#d4f4e2,stroke:#34d399,stroke-width:3px,color:#065f46,font-weight:bold
+    style B fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#1e40af
+    style C fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#1e40af
+    style D fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#1e40af
+    style E fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#1e40af
+    style F fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#1e40af
+    style G fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#1e40af
+    style H fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#1e40af
+    style I fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#1e40af
+    style J fill:#fecaca,stroke:#ef4444,stroke-width:3px,color:#7f1d1d,font-weight:bold
+    style K fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#1e40af
+    style L fill:#dbeafe,stroke:#3b82f6,stroke-width:2px,color:#1e40af
+        </div>
+    </div>
+
+    <h2>Webview Implementation</h2>
+    <div class="diagram-container">
+        <div class="mermaid">
+graph TD
+    subgraph "Webview Implementation"
+        HTML[HTML Structure] --> Head[Head Section]
+        HTML --> Body[Body Section]
+        
+        Head --> Meta[Meta Tags]
+        Head --> CSP[Content Security Policy]
+        Head --> Styles[CSS Styles]
+        
+        Body --> AppDiv[App Div Container]
+        Body --> Scripts[JavaScript Scripts]
+        
+        Scripts --> LoadReact[Load React]
+        Scripts --> LoadReactDOM[Load ReactDOM]
+        Scripts --> LoadExcalidraw[Load Excalidraw]
+        Scripts --> InitApp[Initialize App]
+        
+        InitApp --> CreateApp[Create React App]
+        CreateApp --> SetupExcalidrawRef[Setup Excalidraw Ref]
+        CreateApp --> SetupEffects[Setup React Effects]
+        CreateApp --> RenderExcalidraw[Render Excalidraw Component]
+        
+        RenderExcalidraw --> SetupProps[Setup Excalidraw Props]
+        SetupProps --> OnChangeHandler[onChange Handler]
+        SetupProps --> OnSaveHandler[onSave Handler]
+        SetupProps --> ThemeProps[Theme Props]
+        
+        OnSaveHandler --> PostMessage[Post Message to Extension]
+    end
+    
+    classDef webview fill:#f0f7ff,stroke:#3b82f6;
+    class Webview_Implementation webview;
+        </div>
+    </div>
+
+    <h2>Save Functionality Implementation</h2>
+    <div class="diagram-container">
+        <div class="mermaid">
+sequenceDiagram
+    participant User
+    participant Excalidraw as Excalidraw Component
+    participant Webview as Webview
+    participant Extension as Extension Host
+    participant VSCode as VSCode API
+    participant FileSystem as File System
+    
+    User->>Excalidraw: Press Ctrl/Cmd+S
+    Excalidraw->>Excalidraw: Trigger onSave callback
+    Excalidraw->>Webview: Call onSave with drawing data
+    Webview->>Extension: Post 'save' message with data
+    Extension->>VSCode: Call showSaveDialog
+    VSCode->>User: Display save dialog
+    User->>VSCode: Select location and confirm
+    VSCode->>Extension: Return selected URI
+    Extension->>FileSystem: Write JSON data to file
+    FileSystem->>Extension: File write complete
+    Extension->>VSCode: Show success message
+    VSCode->>User: Display "Figure saved successfully!"
+        </div>
+    </div>
+
+    <h2>Drawing Tools Implementation</h2>
+    <div class="diagram-container">
+        <div class="mermaid">
+graph TD
+    subgraph "Excalidraw Features"
+        Tools[Drawing Tools] --> ShapeTools[Shape Tools]
+        Tools --> FreehandTools[Freehand Tools]
+        Tools --> TextTools[Text Tools]
+        Tools --> SelectionTools[Selection Tools]
+        
+        ShapeTools --> Rectangle[Rectangle]
+        ShapeTools --> Ellipse[Ellipse]
+        ShapeTools --> Diamond[Diamond]
+        ShapeTools --> Arrow[Arrow]
+        ShapeTools --> Line[Line]
+        
+        FreehandTools --> Pencil[Pencil]
+        FreehandTools --> Brush[Brush]
+        
+        TextTools --> TextBox[Text Box]
+        TextTools --> Label[Label]
+        
+        SelectionTools --> Select[Select]
+        SelectionTools --> Move[Move]
+        SelectionTools --> Resize[Resize]
+        
+        Settings[Tool Settings] --> Color[Color]
+        Settings --> StrokeWidth[Stroke Width]
+        Settings --> Fill[Fill]
+        Settings --> Opacity[Opacity]
+        Settings --> FontSize[Font Size]
+    end
+    
+    classDef tools fill:#e2e3e5,stroke:#6c757d;
+    class Excalidraw_Features tools;
+        </div>
+    </div>
+
+    <h2>Theme Synchronization</h2>
+    <div class="diagram-container">
+        <div class="mermaid">
+sequenceDiagram
+    participant VSCode as VSCode
+    participant Extension as Extension
+    participant Webview as Webview
+    participant Excalidraw as Excalidraw
+    
+    Note over VSCode,Excalidraw: Theme Synchronization
+    
+    VSCode->>Extension: Theme Change Event
+    Extension->>Webview: Post Theme Message
+    Webview->>Webview: Process Message
+    Webview->>Excalidraw: Update Theme (light/dark)
+    Excalidraw->>Excalidraw: Re-render with New Theme
+        </div>
+    </div>
+
+    <h2>State Management Flow</h2>
+    <div class="diagram-container">
+        <div class="mermaid">
+graph TD
+    subgraph "Extension State"
+        ExtensionContext[Extension Context] --> Subscriptions[Subscriptions]
+        ExtensionContext --> Disposables[Disposables]
+        ExtensionContext --> WebviewPanels[Webview Panels]
+    end
+    
+    subgraph "Webview State"
+        ReactState[React State] --> ExcalidrawRef[Excalidraw Ref]
+        ReactState --> Elements[Drawing Elements]
+        ReactState --> AppState[App State]
+        
+        Elements --> Shapes[Shapes]
+        Elements --> Lines[Lines]
+        Elements --> TextElements[Text Elements]
+        
+        AppState --> ViewMode[View Mode]
+        AppState --> ZoomLevel[Zoom Level]
+        AppState --> GridMode[Grid Mode]
+        AppState --> Theme[Theme]
+    end
+    
+    ExtensionContext -. Creates .-> WebviewPanels
+    WebviewPanels -. Renders .-> ReactState
+    
+    classDef extension fill:#f0f7ff,stroke:#3b82f6;
+    classDef webview fill:#f0fdf4,stroke:#22c55e;
+    
+    class Extension_State extension;
+    class Webview_State webview;
+        </div>
+    </div>
+
+    <h2>File Format</h2>
+    <div class="diagram-container">
+        <div class="mermaid">
+graph TD
+    subgraph ".figure File Format"
+        FigureFile[.figure File] --> JSON[JSON Format]
+        JSON --> Elements[Elements Array]
+        JSON --> AppState[App State Object]
+        
+        Elements --> Element1[Element 1]
+        Elements --> Element2[Element 2]
+        Elements --> ElementN[Element N]
+        
+        Element1 --> ID[id]
+        Element1 --> Type[type]
+        Element1 --> X[x]
+        Element1 --> Y[y]
+        Element1 --> Width[width]
+        Element1 --> Height[height]
+        Element1 --> Properties[properties]
+        
+        AppState --> ViewMode[viewMode]
+        AppState --> Zoom[zoom]
+        AppState --> ScrollX[scrollX]
+        AppState --> ScrollY[scrollY]
+    end
+    
+    classDef file fill:#f0f7ff,stroke:#3b82f6;
+    class figure_File_Format file;
+        </div>
+    </div>
+
+    <h2>Development Workflow</h2>
+    <div class="diagram-container">
+        <div class="mermaid">
+sequenceDiagram
+    participant Developer
+    participant Git as Git Repository
+    participant NPM as NPM
+    participant VSCode as VSCode
+    participant Extension as Extension Host
+    
+    Developer->>Git: Clone Repository
+    Developer->>NPM: Run npm install
+    NPM->>Developer: Dependencies Installed
+    Developer->>VSCode: Press F5 to Debug
+    VSCode->>Extension: Compile TypeScript
+    Extension->>VSCode: Launch Extension Host
+    VSCode->>Developer: Extension Development Host Window
+    Developer->>VSCode: Test Extension Features
+    Developer->>VSCode: Make Code Changes
+    VSCode->>Extension: Hot Reload Changes
+    Developer->>Git: Commit Changes
+        </div>
+    </div>
+
+    <h2>Future Enhancements</h2>
+    <div class="diagram-container">
+        <div class="mermaid">
+graph TD
+    subgraph "Planned Features"
+        Export[Export Functionality] --> ExportPNG[Export to PNG]
+        Export --> ExportSVG[Export to SVG]
+        
+        Templates[Templates] --> FlowchartTemplates[Flowchart Templates]
+        Templates --> DiagramTemplates[Diagram Templates]
+        Templates --> UMLTemplates[UML Templates]
+        
+        Collaboration[Collaboration] --> SharedEditing[Shared Editing]
+        Collaboration --> Comments[Comments]
+        Collaboration --> VersionHistory[Version History]
+        
+        Integration[VSCode Integration] --> GitIntegration[Git Integration]
+        Integration --> WorkspaceIntegration[Workspace Integration]
+        Integration --> ThemeIntegration[Enhanced Theme Integration]
+    end
+    
+    classDef future fill:#f0f7ff,stroke:#3b82f6;
+    class Planned_Features future;
+        </div>
+    </div>
+
+    <h2>Getting Started</h2>
+    <p>To run the extension locally:</p>
+    <ol>
+        <li>Clone the repository</li>
+        <li>Install dependencies:
+            <ul>
+                <li>Run <code>npm install</code> to install all required packages</li>
+            </ul>
+        </li>
+        <li>Start debugging:
+            <ul>
+                <li>Press F5 in VSCode to launch the extension in debug mode</li>
+                <li>This will open a new VSCode window with the extension loaded</li>
+            </ul>
+        </li>
+        <li>Use the extension:
+            <ul>
+                <li>Open the command palette (Ctrl/Cmd + Shift + P)</li>
+                <li>Type "New Figure Sketch" and select it</li>
+                <li>Start creating your diagram</li>
+                <li>Save your work with Ctrl/Cmd + S</li>
+            </ul>
+        </li>
+    </ol>
+
+    <h2>Conclusion</h2>
+    <p>
+        Figure is a powerful VSCode extension that brings the full capabilities of Excalidraw directly into your editor. 
+        With its seamless integration and intuitive interface, Figure makes it easy to create beautiful diagrams and sketches without leaving your development environment.
+    </p>
+    <p>
+        The extension's architecture leverages VSCode's Webview API and React to provide a smooth drawing experience, 
+        while its modular design makes it easy to extend with new features in the future.
+    </p>
+
+    <footer style="margin-top: 50px; text-align: center; color: #6c757d; font-size: 0.9em;">
+        <p>Generated on April 14, 2025</p>
+    </footer>
+
+    <script>
+        // Initialize all mermaid diagrams
+        mermaid.init(undefined, document.querySelectorAll('.mermaid'));
+    </script>
+</body>
+</html>
